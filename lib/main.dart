@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api/customModel.dart';
 import 'package:rest_api/home.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
 
-      home: const Home()
+      home: const Customs()
     );
   }
 }

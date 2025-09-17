@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
 
     return posts;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
