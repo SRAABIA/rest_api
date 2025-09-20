@@ -14,7 +14,7 @@ class Complex extends StatefulWidget {
 class _ComplexState extends State<Complex> {
   Future<List<UserModel>> getUserApi() async {
     final response = await http.get(
-      Uri.parse("https://jsonplaceholder.typicode.com/users"),
+      Uri.parse('https://gorest.co.in/public/v2/users'),
     );
 
     if (response.statusCode == 200) {
@@ -31,9 +31,9 @@ class _ComplexState extends State<Complex> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Complex"),
+        title: const Text("Complex", style: TextStyle(color: Colors.white),),
         centerTitle: true,
-        backgroundColor: Colors.pink.shade200,
+        backgroundColor: Colors.blue.shade800,
       ),
       body: FutureBuilder<List<UserModel>>(
         future: getUserApi(),
@@ -56,8 +56,15 @@ class _ComplexState extends State<Complex> {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.blue.shade700,
+                      child: Text("${index + 1}",style: TextStyle(color: Colors.white),),
+                    ),
                     title: Text("Name: ${users[index].name}"),
                     subtitle: Text("Email: ${users[index].email}"),
+                    trailing: Text("${users[index].status}", style: TextStyle( color: users[index].status == "active" ? Colors.green : Colors.red),),
+
+
                   ),
                 );
               },

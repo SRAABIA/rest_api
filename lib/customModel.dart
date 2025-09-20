@@ -13,14 +13,19 @@ class _CustomsState extends State<Customs> {
   List<Photos> photosList = [];
 
   Future<List<Photos>> getPhotos() async {
-      final response = await http.get(
-          Uri.parse("https://jsonplaceholder.typicode.com/photos"),
-      );
+      final response = await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
+      print(response.body.toString());
+
       if (response.statusCode == 200) {
         try {
-          List<dynamic> data = jsonDecode(response.body);
-          print("Response body: ${response.body}");
-          return data.map((e) => Photos.fromJson(e)).toList();
+          List<dynamic> data = jsonDecode(response.body.toString());
+          print("Response body: ${data.toString()}");
+          for(Map i in data){
+            Photos photos = Photos(name: i['name'], email: i['email']);
+            photosList.add(photos);
+
+          }
+          return photosList;
         } catch (e) {
           throw Exception("Failed to parse JSON: $e");
         }
@@ -54,9 +59,10 @@ class _CustomsState extends State<Customs> {
             itemBuilder: (context, index) {
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(photos[index].url),
+                 // backgroundImage: NetworkImage(photos[index].url),
                 ),
-                subtitle: Text(photos[index].title),
+                subtitle: Text(photos[index].name),
+                title: Text(photos[index].email),
               );
             },
           );
@@ -98,14 +104,14 @@ class _CustomsState extends State<Customs> {
 }
 
 class Photos {
-  String title, url;
+  String name, email;
 
-  Photos({required this.title, required this.url});
+  Photos({required this.name, required this.email});
 
   factory Photos.fromJson(Map<String, dynamic> json) {
     return Photos(
-      title: json['title'] as String,
-      url: json['url'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
     );
   }
 }
