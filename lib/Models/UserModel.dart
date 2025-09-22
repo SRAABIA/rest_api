@@ -1,9 +1,3 @@
-/// id : 8140319
-/// name : "Mrs. Birjesh Joshi"
-/// email : "joshi_mrs_birjesh@olson.test"
-/// gender : "female"
-/// status : "active"
-
 class UserModel {
   UserModel({
       num? id, 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rest_api/customModel.dart';
 import 'package:rest_api/home.dart';
+import 'package:rest_api/signup.dart';
 
 import 'exampleThree.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
 
-      home: const Complex()
+      home: const SignUp()
         ,
 
     );

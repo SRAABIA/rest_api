@@ -14,12 +14,10 @@ class _CustomsState extends State<Customs> {
 
   Future<List<Photos>> getPhotos() async {
       final response = await http.get(Uri.parse('https://gorest.co.in/public/v2/users'));
-      print(response.body.toString());
 
       if (response.statusCode == 200) {
         try {
           List<dynamic> data = jsonDecode(response.body.toString());
-          print("Response body: ${data.toString()}");
           for(Map i in data){
             Photos photos = Photos(name: i['name'], email: i['email']);
             photosList.add(photos);

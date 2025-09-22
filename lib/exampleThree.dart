@@ -21,8 +21,6 @@ class _ComplexState extends State<Complex> {
       List data = jsonDecode(response.body);
       return data.map((e) => UserModel.fromJson(e)).toList();
     } else {
-      print("Status code: ${response.statusCode}");
-      print("Response: ${response.body}");
       throw Exception("Failed to load data");
     }
   }
@@ -55,23 +53,45 @@ class _ComplexState extends State<Complex> {
               itemCount: users.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.blue.shade700,
-                      child: Text("${index + 1}",style: TextStyle(color: Colors.white),),
-                    ),
-                    title: Text("Name: ${users[index].name}"),
-                    subtitle: Text("Email: ${users[index].email}"),
-                    trailing: Text("${users[index].status}", style: TextStyle( color: users[index].status == "active" ? Colors.green : Colors.red),),
-
-
-                  ),
+                  child: Column(
+                    children: [
+                      ReusableTile(
+                          id: index,
+                          title: users[index].name!,
+                          email: users[index].email!,
+                          status: users[index].status!
+                      ),
+                    ]
+                  )
                 );
               },
             );
           }
         },
       ),
+    );
+  }
+}
+
+
+class ReusableTile extends StatelessWidget {
+  final int id;
+  final String title, email,status;
+   const ReusableTile({super.key, required this.id,required this.title, required this.email, required this.status});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: Colors.blue.shade700,
+        child: Text("${id + 1}",style: TextStyle(color: Colors.white),),
+      ),
+      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: Text("✉️: $email"),
+      trailing: Text(status, style: TextStyle( color: status == "active" ? Colors.green : Colors.red),),
+
+
     );
   }
 }
